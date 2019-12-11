@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 127091169}
   - component: {fileID: 127091170}
-  m_Layer: 13
-  m_Name: GameObject
+  m_Layer: 8
+  m_Name: PullTrigger
   m_TagString: PullTrigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 127091168}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 2.18, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1595070099}
@@ -206,7 +206,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1038544862}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.051, z: -0.032}
+  m_LocalPosition: {x: 0, y: 0.592, z: -0.032}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1595070099}
@@ -265,6 +265,7 @@ MonoBehaviour:
   levels:
   - {fileID: 1177989551665382457, guid: 8c295755bd5873e40a2159a80b6b9927, type: 3}
   - {fileID: 1177989551665382457, guid: 2acebedfbcab2644597fe226764c2315, type: 3}
+  - {fileID: 1177989551665382457, guid: 1eedef5f56f0f0b48902f950f9831242, type: 3}
   doorMaterial: {fileID: 2100000, guid: 8555d541eb3e3a04f832c89e273cf860, type: 2}
   tableMaterial: {fileID: 2100000, guid: 3d2211357d7cd8148a5e9a57c62e3c5d, type: 2}
   enemyMaterial: {fileID: 2100000, guid: 1e04013d055400c4f9ea3415890792b9, type: 2}

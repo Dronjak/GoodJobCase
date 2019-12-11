@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        //Instantiate(levels[currentLevel]);
+        Instantiate(levels[currentLevel]);
         targetSpeed = baseSpeed;
         mainCam = Camera.main;
         mainCam.transform.position = new Vector3(0, 26, -17.5f);
