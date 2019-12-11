@@ -258,7 +258,7 @@ MonoBehaviour:
   door: {fileID: 4632825123274162579}
   player: {fileID: 1595070098}
   baseSpeed: 5
-  transactionSpeed: 200
+  transactionSpeed: 400
   confetti: {fileID: 6893867076886554730}
   restartMenu: {fileID: 0}
   nextLevelMenu: {fileID: 0}
