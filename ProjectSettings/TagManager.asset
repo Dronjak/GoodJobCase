@@ -7,6 +7,8 @@ TagManager:
   - Table1
   - Table2
   - Enemy
+  - HoleTrigger
+  - HoleExit
   layers:
   - Default
   - TransparentFX
@@ -18,11 +20,11 @@ TagManager:
   - 
   - Table
   - Hole
-  - 
-  - 
-  - 
-  - 
-  - 
+  - OnTable
+  - OnHole
+  - TriggerHole
+  - InsideHole
+  - Plane
   - 
   - 
   - 

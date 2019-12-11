@@ -25,7 +25,6 @@ public class Player : MonoBehaviour
         mainCam = Camera.main;
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         Movement();
@@ -72,7 +71,7 @@ public class Player : MonoBehaviour
            var delta = 6*Time.deltaTime;
            delta *= Vector3.Distance(transform.localPosition, targetPosition);
            Vector3 movePos = Vector3.MoveTowards(transform.localPosition, targetPosition, delta);
-           transform.position = movePos;
+           GetComponent<Rigidbody>().MovePosition(movePos);
         }
     }
 

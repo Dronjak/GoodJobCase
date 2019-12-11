@@ -7,36 +7,27 @@ using Random = UnityEngine.Random;
 
 public class Target : MonoBehaviour
 {
-    private GameObject player;
-    private GameObject playerCylinder;
+    private GameObject playerPullPoint;
+    private GameObject playerSurfacePoint;
     private Rigidbody rb;
     private Vector3 attachedPos;
-    private bool isAttached = false;
-    private bool isOnHub = false;
-    private bool isThrowing = false;
 
     private int color;
-    private bool isAttachable = true;
-    private Collider collider;
-    private bool isCollided;
-
 
     private float pullDistance;
-    private bool isScalingDown;
-    private float speedX = 10f;
+    private float speedX;
+    private Vector3 startPos;
 
-    private void Awake()
-    {
-        //GameManager.instance.AddTarget(gameObject);
-    }
+    private bool isRemoved = false;
+    
 
     void Start()
     {
+        startPos = transform.position;
         pullDistance = GameManager.instance.pullDistance;
-        player = GameObject.Find("Player");
-        playerCylinder = GameObject.Find("PlayerCylinder");
+        playerPullPoint = GameObject.Find("PlayerPullPoint");
+        playerSurfacePoint = GameObject.Find("DepthMask");
         rb = GetComponent<Rigidbody>();
-        collider = GetComponent<Collider>();
     }
 
     void FixedUpdate()
@@ -46,14 +37,14 @@ public class Target : MonoBehaviour
 
     void MoveToPlayer()
     {
-        if (Vector3.Distance(transform.position, playerCylinder.transform.position) < pullDistance)
+        if (Vector3.Distance(transform.position, playerSurfacePoint.transform.position) < pullDistance)
         {
             speedX = GameManager.instance.GetSpeed();
-            rb.AddForce((player.transform.position - transform.position) * speedX);
+            rb.AddForce((playerPullPoint.transform.position - transform.position).normalized * speedX);
             
         }
         
-        if (transform.position.y < 0)
+        if (transform.position.y < -1f && !isRemoved)
         {
             gameObject.SetActive(false);
             if (gameObject.CompareTag("Enemy"))
@@ -66,39 +57,21 @@ public class Target : MonoBehaviour
             }else if (CompareTag("Table2"))
             {
                 GameManager.instance.DecreaseTable2Count();
-
             }
+
+            isRemoved = true;
         }
     }
     
-    IEnumerator ScaleDown(float duration, Vector3 startScale)
-    {
-        if (isScalingDown)
-        {
-            yield break;
-        }
-
-        isScalingDown = true;
-        var t = 0f;        
-        Vector3 targetScale = transform.localScale * 0.65f;
-        while(t < 1)
-        {
-            t += Time.deltaTime / duration;
-            transform.localScale = Vector3.Lerp(startScale, targetScale, t);
-            yield return null;
-        }
-
-        isScalingDown = false;
-
-    }
-
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("HoleTrigger"))
         {
-            //StartCoroutine(ScaleDown(0.1f,transform.localScale));
-            collider.enabled = false;
+            gameObject.layer = 11;
         }
     }
+    
+    
+    
     
 }

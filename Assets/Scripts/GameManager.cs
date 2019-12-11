@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -18,7 +19,12 @@ public class GameManager : MonoBehaviour
     private float targetSpeed;
     public float baseSpeed;
     public float transactionSpeed;
-    
+    public ParticleSystem confetti;
+    public GameObject restartMenu;
+
+    private static int currentLevel = 0;
+    public List<GameObject> levels;
+
 
     private int count;
 
@@ -29,6 +35,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        Instantiate(levels[currentLevel]);
         targetSpeed = baseSpeed;
         mainCam = Camera.main;
         mainCam.transform.position = new Vector3(0, 26, -17.5f);
@@ -51,13 +58,39 @@ public class GameManager : MonoBehaviour
         table2TargetCount--;
         if (table2TargetCount == 0)
         {
-            Time.timeScale = 0;
+            isInputOpen = false;
+            confetti.Play();
+            StartNextLevel();
         }
+    }
+
+    private void StartNextLevel()
+    {
+        if (currentLevel < levels.Count - 1)
+        {
+            currentLevel++;
+        }
+
+        StartCoroutine(LoadSceneAfterX(2));
+    }
+
+    public void RestartLevel(float duration)
+    {
+        StartCoroutine(LoadSceneAfterX(duration));
+    }
+
+    IEnumerator LoadSceneAfterX(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        isInputOpen = true;
     }
 
     public void GameOver()
     {
+        isInputOpen = false;
         ShakeCam();
+        restartMenu.SetActive(true);
     }
 
     public void ShakeCam()
