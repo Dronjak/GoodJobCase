@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - HoleTrigger
   - HoleExit
+  - PullTrigger
   layers:
   - Default
   - TransparentFX

@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     private float upperBound = 7.10f;
     private float bottomBound = 3.45f;
     private float xBound = 3.30f;
+    private Vector3 targetPosition;
 
     
 
@@ -27,7 +28,7 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        Movement();
+        Move();
     }
 
     void Update()
@@ -35,7 +36,7 @@ public class Player : MonoBehaviour
         CheckInput();
     }
 
-    void Movement(){
+    void Move(){
         if (isTouched)
         {
             Vector3 distancePos = (mainCam.ScreenToViewportPoint(Input.mousePosition)*5 - startPos);
@@ -44,30 +45,9 @@ public class Player : MonoBehaviour
             distancePos.z = temp * 4;
             distancePos.x *= 2;
             
-            Vector3 targetPosition = playerPos + distancePos;
-
-        
-           if (targetPosition.x > xBound)
-           {
-               targetPosition.x = xBound;
-           }
-
-           if (targetPosition.x < -xBound)
-           {
-               targetPosition.x = -xBound;
-           }
-           
-           if (targetPosition.z > upperBound)
-           {
-               targetPosition.z = upperBound;
-           }
-
-           if (targetPosition.z < -bottomBound)
-           {
-               targetPosition.z = -bottomBound;
-           }
-
-           
+            targetPosition = playerPos + distancePos;
+            CheckBounds();
+       
            var delta = 6*Time.deltaTime;
            delta *= Vector3.Distance(transform.localPosition, targetPosition);
            Vector3 movePos = Vector3.MoveTowards(transform.localPosition, targetPosition, delta);
@@ -95,6 +75,29 @@ public class Player : MonoBehaviour
         else
         {
             isTouched = false;
+        }
+    }
+
+    void CheckBounds()
+    {
+        if (targetPosition.x > xBound)
+        {
+            targetPosition.x = xBound;
+        }
+
+        if (targetPosition.x < -xBound)
+        {
+            targetPosition.x = -xBound;
+        }
+           
+        if (targetPosition.z > upperBound)
+        {
+            targetPosition.z = upperBound;
+        }
+
+        if (targetPosition.z < -bottomBound)
+        {
+            targetPosition.z = -bottomBound;
         }
     }
 

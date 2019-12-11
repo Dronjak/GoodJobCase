@@ -19,7 +19,7 @@ public class MenuRestart : MonoBehaviour
     void OnClickRestartButton()
     {
         gameObject.SetActive(false);
-        GameManager.instance.RestartLevel(0.25f);
+        GameManager.instance.RestartLevel();
     }
     
 }

@@ -16,14 +16,12 @@ public class Target : MonoBehaviour
 
     private float pullDistance;
     private float speedX;
-    private Vector3 startPos;
 
-    private bool isRemoved = false;
+    private bool isRemoved;
     
 
     void Start()
     {
-        startPos = transform.position;
         pullDistance = GameManager.instance.pullDistance;
         playerPullPoint = GameObject.Find("PlayerPullPoint");
         playerSurfacePoint = GameObject.Find("DepthMask");
@@ -37,14 +35,16 @@ public class Target : MonoBehaviour
 
     void MoveToPlayer()
     {
-        if (Vector3.Distance(transform.position, playerSurfacePoint.transform.position) < pullDistance)
+        //apply force to target's after a certain pullDistance reached
+        if (Vector3.Distance(transform.position, playerSurfacePoint.transform.position) < pullDistance  && !CheckIfAutoAndEnemy())
         {
             speedX = GameManager.instance.GetSpeed();
             rb.AddForce((playerPullPoint.transform.position - transform.position).normalized * speedX);
             
         }
         
-        if (transform.position.y < -1f && !isRemoved)
+        // remove object after a certain fall
+        if (transform.position.y < -0.5f && !isRemoved)
         {
             gameObject.SetActive(false);
             if (gameObject.CompareTag("Enemy"))
@@ -65,10 +65,25 @@ public class Target : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("HoleTrigger"))
+        
+        //players pull trigger removes the targets being kinematic
+        if (other.CompareTag("PullTrigger"))
+        {
+            rb.isKinematic = false;
+        }
+        
+        //if hole is triggered then target changes layers to fall into the blackhole
+        if (other.CompareTag("HoleTrigger") &&  !CheckIfAutoAndEnemy())
         {
             gameObject.layer = 11;
         }
+    }
+    
+    
+    //check if there is a enemy while an animation being played.
+    private bool CheckIfAutoAndEnemy()
+    {
+        return CompareTag("Enemy") && !GameManager.instance.GetIsInputOpen();
     }
     
     
