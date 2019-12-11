@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    private int attachedCount = 0;
     public GameObject door;
     public GameObject player;
     private Camera mainCam;
@@ -42,7 +41,7 @@ public class GameManager : MonoBehaviour
         Instantiate(levels[currentLevel]);
         targetSpeed = baseSpeed;
         mainCam = Camera.main;
-        mainCam.transform.position = new Vector3(0, 26, -17.5f);
+        if (mainCam != null) mainCam.transform.position = new Vector3(0, 26, -17.5f);
         table1TargetCount = GameObject.FindGameObjectsWithTag("Table1").Length;
         table2TargetCount = GameObject.FindGameObjectsWithTag("Table2").Length;
     }
