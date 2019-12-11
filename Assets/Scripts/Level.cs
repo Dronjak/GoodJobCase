@@ -12,6 +12,7 @@ public class Level : MonoBehaviour
         GameManager.instance.doorMaterial.color = doorColor;
         GameManager.instance.tableMaterial.color = tableColor;
         GameManager.instance.enemyMaterial.color = enemyColor;
+        GameManager.instance.holeMaterial.color = tableColor;
     }
 
     // Update is called once per frame

@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     private float bottomBound = 3.45f;
     private float xBound = 3.30f;
     private Vector3 targetPosition;
+    public Rigidbody rb;
 
     
 
@@ -48,7 +49,7 @@ public class Player : MonoBehaviour
            var delta = 6*Time.deltaTime;
            delta *= Vector3.Distance(transform.localPosition, targetPosition);
            Vector3 movePos = Vector3.MoveTowards(transform.localPosition, targetPosition, delta);
-           GetComponent<Rigidbody>().MovePosition(movePos);
+           rb.MovePosition(movePos);
         }
     }
 

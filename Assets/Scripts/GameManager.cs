@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
     public Material doorMaterial;
     public Material tableMaterial;
     public Material enemyMaterial;
+    public Material holeMaterial;
 
 
     private int count;
