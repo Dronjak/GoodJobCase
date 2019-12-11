@@ -99,7 +99,7 @@ public class GameManager : MonoBehaviour
 
     private void SwitchToTable2()
     {
-        StartCoroutine(MovePlayerAndDoor(1f));
+        StartCoroutine(MovePlayerAndDoor(1));
     }
 
     IEnumerator MovePlayerAndDoor(float duration)
@@ -109,13 +109,15 @@ public class GameManager : MonoBehaviour
         Rigidbody rb = player.GetComponent<Rigidbody>();
         Vector3 doorTargetPos = new Vector3(doorStartPos.x,0.83f,doorStartPos.z);
         Vector3 targetPos = new Vector3(0,startPos.y,startPos.z);
-        
-        var t = 0f;
-        while(t < 1)
+
+        float playerDistance = Vector3.Distance(startPos, targetPos);
+        float doorDistance = Vector3.Distance(doorStartPos, doorTargetPos);
+
+        float startTime = Time.time;
+        while(startTime + duration > Time.time)
         {
-            t += Time.deltaTime / duration;
-            rb.MovePosition(Vector3.Lerp(startPos, targetPos, t));
-            door.transform.position = Vector3.Lerp(doorStartPos, doorTargetPos, t);
+            player.transform.position = Vector3.MoveTowards(player.transform.position, targetPos, Time.deltaTime * playerDistance / duration);
+            door.transform.position = Vector3.MoveTowards(door.transform.position, doorTargetPos, Time.deltaTime * doorDistance / duration);
             yield return null;
         }
         
@@ -130,13 +132,14 @@ public class GameManager : MonoBehaviour
         Vector3 camTargetPos = new Vector3(camStartPos.x,camStartPos.y,2.4f);
         Vector3 playerStartPos = player.transform.position;
         Vector3 playerTargetPos = new Vector3(playerStartPos.x,playerStartPos.y,playerZVal);
+        float playerTotalDistance = Vector3.Distance(playerTargetPos, playerStartPos);
+        float cameraDistance = Vector3.Distance(camTargetPos, camStartPos);
         
-        var t = 0f;
-        while(t < 1)
+        float startTime = Time.time;
+        while(startTime + duration > Time.time)
         {
-            t += Time.deltaTime / duration;
-            player.transform.position = Vector3.Lerp(playerStartPos, playerTargetPos, t);
-            mainCam.transform.position = Vector3.Lerp(camStartPos, camTargetPos, t);
+            player.transform.position = Vector3.MoveTowards(player.transform.position, playerTargetPos, Time.deltaTime * playerTotalDistance / duration);
+            mainCam.transform.position = Vector3.MoveTowards(mainCam.transform.position, camTargetPos, Time.deltaTime * cameraDistance / duration);
             yield return null;
         }
 

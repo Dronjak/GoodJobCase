@@ -13,6 +13,7 @@ public class Target : MonoBehaviour
     private float speedX;
 
     private bool isRemoved;
+    private bool isInside;
     
 
     void Start()
@@ -31,7 +32,7 @@ public class Target : MonoBehaviour
     void MoveToPlayer()
     {
         //apply force to target's after a certain pullDistance reached
-        if (Vector3.Distance(transform.position, playerSurfacePoint.transform.position) < pullDistance  && !CheckIfAutoAndEnemy())
+        if (isInside ||Vector3.Distance(transform.position, playerSurfacePoint.transform.position) < pullDistance  && !CheckIfAutoAndEnemy())
         {
             speedX = GameManager.instance.GetSpeed();
             rb.AddForce((playerPullPoint.transform.position - transform.position).normalized * speedX);
@@ -71,6 +72,7 @@ public class Target : MonoBehaviour
         if (other.CompareTag("HoleTrigger") &&  !CheckIfAutoAndEnemy())
         {
             gameObject.layer = 11;
+            isInside = true;
         }
     }
     
