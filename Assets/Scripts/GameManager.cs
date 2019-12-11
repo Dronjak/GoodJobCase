@@ -106,6 +106,7 @@ public class GameManager : MonoBehaviour
     {
         Vector3 startPos = player.transform.position;
         Vector3 doorStartPos = door.transform.position;
+        Rigidbody rb = player.GetComponent<Rigidbody>();
         Vector3 doorTargetPos = new Vector3(doorStartPos.x,0.83f,doorStartPos.z);
         Vector3 targetPos = new Vector3(0,startPos.y,startPos.z);
         
@@ -113,7 +114,7 @@ public class GameManager : MonoBehaviour
         while(t < 1)
         {
             t += Time.deltaTime / duration;
-            player.transform.position = Vector3.Lerp(startPos, targetPos, t);
+            rb.MovePosition(Vector3.Lerp(startPos, targetPos, t));
             door.transform.position = Vector3.Lerp(doorStartPos, doorTargetPos, t);
             yield return null;
         }
