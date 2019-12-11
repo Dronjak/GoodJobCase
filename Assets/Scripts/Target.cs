@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections;
-using ScriptInspector;
-using UnityEngine;
-using Object = System.Object;
-using Random = UnityEngine.Random;
+﻿using UnityEngine;
 
 public class Target : MonoBehaviour
 {

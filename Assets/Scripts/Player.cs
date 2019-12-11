@@ -1,7 +1,4 @@
-﻿using System;
-using System.Numerics;
-using UnityEngine;
-using Quaternion = UnityEngine.Quaternion;
+﻿using UnityEngine;
 using Vector3 = UnityEngine.Vector3;
 
 public class Player : MonoBehaviour
