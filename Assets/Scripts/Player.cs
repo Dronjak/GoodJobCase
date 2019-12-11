@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     private float upperBound = 7.10f;
     private float bottomBound = 3.45f;
     private float xBound = 3.30f;
+
     
 
     private void Start()

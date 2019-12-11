@@ -107,7 +107,7 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
 
-        player.GetComponent<Player>().AdjustBoundraies(26.5f, 16.2f);
+        player.GetComponent<Player>().AdjustBoundraies(26.5f, -16.5f);
         isInputOpen = true;
         targetSpeed = baseSpeed;
     }

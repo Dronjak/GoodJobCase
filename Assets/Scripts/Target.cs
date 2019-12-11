@@ -53,9 +53,9 @@ public class Target : MonoBehaviour
             
         }
         
-        if (transform.position.y < 0.5f)
+        if (transform.position.y < 0)
         {
-            //gameObject.SetActive(false);
+            gameObject.SetActive(false);
             if (gameObject.CompareTag("Enemy"))
             {
                 GameManager.instance.GameOver();
@@ -80,7 +80,7 @@ public class Target : MonoBehaviour
 
         isScalingDown = true;
         var t = 0f;        
-        Vector3 targetScale = transform.localScale * 0.8f;
+        Vector3 targetScale = transform.localScale * 0.65f;
         while(t < 1)
         {
             t += Time.deltaTime / duration;
