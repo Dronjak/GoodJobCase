@@ -3,24 +3,10 @@ using UnityEngine;
 
 public class CameraShaker : MonoBehaviour
 {
-    
     private float shakeDuration = 0.1f;
     private float shakeAmount = 0.1f;
     private float decreaseFactor = 1.0f;
-    
     Vector3 originalPos;
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-
     IEnumerator ShakeCo()
     {
         originalPos = transform.position;

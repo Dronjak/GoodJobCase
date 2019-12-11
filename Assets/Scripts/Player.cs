@@ -6,34 +6,25 @@ public class Player : MonoBehaviour
     private Vector3 startPos;
     private Vector3 playerPos;
     private bool isTouched;
-
     private Camera mainCam;
-
     private bool mouseClicked;
-
     private float upperBound = 7.10f;
     private float bottomBound = 3.45f;
     private float xBound = 3.30f;
     private Vector3 targetPosition;
     public Rigidbody rb;
-
-    
-
     private void Start()
     {
         mainCam = Camera.main;
     }
-
     void FixedUpdate()
     {
         Move();
     }
-
     void Update()
     {
         CheckInput();
     }
-
     void Move(){
         if (isTouched)
         {
@@ -52,7 +43,6 @@ public class Player : MonoBehaviour
            rb.MovePosition(movePos);
         }
     }
-
     void CheckInput()
     {
         if (GameManager.instance.GetIsInputOpen())
@@ -75,7 +65,6 @@ public class Player : MonoBehaviour
             isTouched = false;
         }
     }
-
     void CheckBounds()
     {
         if (targetPosition.x > xBound)
@@ -98,11 +87,9 @@ public class Player : MonoBehaviour
             targetPosition.z = -bottomBound;
         }
     }
-
-    public void AdjustBoundraies(float upperBound, float bottomBound)
+    public void AdjustBoundaries(float upperBoundary, float bottomBoundary)
     {
-        this.upperBound = upperBound;
-        this.bottomBound = bottomBound;
+        upperBound = upperBoundary;
+        bottomBound = bottomBoundary;
     }
-    
 }

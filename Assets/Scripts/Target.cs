@@ -6,16 +6,11 @@ public class Target : MonoBehaviour
     private GameObject playerSurfacePoint;
     private Rigidbody rb;
     private Vector3 attachedPos;
-
     private int color;
-
     private float pullDistance;
     private float speedX;
-
     private bool isRemoved;
     private bool isInside;
-    
-
     void Start()
     {
         pullDistance = GameManager.instance.pullDistance;
@@ -23,12 +18,10 @@ public class Target : MonoBehaviour
         playerSurfacePoint = GameObject.Find("DepthMask");
         rb = GetComponent<Rigidbody>();
     }
-
     void FixedUpdate()
     {
         MoveToPlayer();
     }
-
     void MoveToPlayer()
     {
         //apply force to target's after a certain pullDistance reached
@@ -58,7 +51,6 @@ public class Target : MonoBehaviour
             isRemoved = true;
         }
     }
-    
     private void OnTriggerEnter(Collider other)
     {
         
@@ -75,8 +67,6 @@ public class Target : MonoBehaviour
             isInside = true;
         }
     }
-    
-    
     //check if there is a enemy while an animation being played.
     private bool CheckIfAutoAndEnemy()
     {

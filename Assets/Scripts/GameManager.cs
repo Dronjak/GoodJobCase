@@ -7,11 +7,9 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public GameObject door;
-    public GameObject player;
-    private Camera mainCam;
+    public Player player;
+    public CameraShaker mainCam;
     private bool isInputOpen = true;
-    
-
     private int table1TargetCount;
     private int table2TargetCount;
     private float targetSpeed;
@@ -20,33 +18,23 @@ public class GameManager : MonoBehaviour
     public ParticleSystem confetti;
     public GameObject restartMenu;
     public GameObject nextLevelMenu;
-
     private static int currentLevel = 0;
     public List<GameObject> levels;
-
     public Material doorMaterial;
     public Material tableMaterial;
     public Material enemyMaterial;
     public Material holeMaterial;
-
-
     private int count;
-
-    private List<GameObject>_targets;
-
     public float pullDistance;
-
     private void Awake()
     {
         instance = this;
         Instantiate(levels[currentLevel]);
         targetSpeed = baseSpeed;
-        mainCam = Camera.main;
         if (mainCam != null) mainCam.transform.position = new Vector3(0, 26, -17.5f);
         table1TargetCount = GameObject.FindGameObjectsWithTag("Table1").Length;
         table2TargetCount = GameObject.FindGameObjectsWithTag("Table2").Length;
     }
-
     public void DecreaseTable1Count()
     {
         table1TargetCount--;
@@ -56,7 +44,6 @@ public class GameManager : MonoBehaviour
             SwitchToTable2();
         }
     }
-    
     public void DecreaseTable2Count()
     {
         table2TargetCount--;
@@ -67,7 +54,6 @@ public class GameManager : MonoBehaviour
             nextLevelMenu.SetActive(true);
         }
     }
-
     public void StartNextLevel()
     {
         if (currentLevel < levels.Count - 1)
@@ -78,36 +64,29 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         isInputOpen = true;
     }
-
     public void RestartLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         isInputOpen = true;
     }
-    
-
     public void GameOver()
     {
         isInputOpen = false;
         ShakeCam();
         restartMenu.SetActive(true);
     }
-
     public void ShakeCam()
     {
-        mainCam.GetComponent<CameraShaker>().Shake();
+        mainCam.Shake();
     }
-
     private void SwitchToTable2()
     {
         StartCoroutine(MovePlayerAndDoor(1));
     }
-
     IEnumerator MovePlayerAndDoor(float duration)
     {
         Vector3 startPos = player.transform.position;
         Vector3 doorStartPos = door.transform.position;
-        Rigidbody rb = player.GetComponent<Rigidbody>();
         Vector3 doorTargetPos = new Vector3(doorStartPos.x,0.83f,doorStartPos.z);
         Vector3 targetPos = new Vector3(0,startPos.y,startPos.z);
 
@@ -124,7 +103,6 @@ public class GameManager : MonoBehaviour
         
         StartCoroutine(MoveToSecondTable(2f));
     }
-
     IEnumerator MoveToSecondTable(float duration)
     {
         targetSpeed = transactionSpeed;
@@ -144,20 +122,16 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
 
-        player.GetComponent<Player>().AdjustBoundraies(26.5f, -16.5f);
+        player.AdjustBoundaries(26.5f, -16.5f);
         isInputOpen = true;
         targetSpeed = baseSpeed;
     }
-
     public bool GetIsInputOpen()
     {
         return isInputOpen;
     }
-
     public float GetSpeed()
     {
         return targetSpeed;
     }
-    
-    
 }
